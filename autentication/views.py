@@ -13,12 +13,18 @@ def cadastro(request):
         "nome" : "Lucas",
         "idade" : "23",
         "profissao" : "Vendedor",
+    },
+    {
+        "validator" : True
     }]
+    lista_de_compras = ["abacaxi","pera","maça"]
 
     # Para renderizar os valores no HTML você faz assim:
     # atributos_cadastro.nome da variavel -> CERTO
     # atributos_cadastro[nome da variavel] -> ERRADO
-    return render(request,"cadastro.html",{"atributos_cadastro":atributos_cadastro})
+
+    return render(request,"cadastro.html",{"atributos_cadastro":atributos_cadastro,
+                                            "compras" : lista_de_compras})
 
 def home(request):
     return HttpResponse(content=F"Home Page Base Auth Controller")

@@ -6,9 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autenticação</title>
     <h1>Cadastro</h1>
+
     <p>Nome: {{atributos_cadastro.0.nome}}</p>
     <p>Idade: {{atributos_cadastro.0.idade}}</p>
     <p>Profissao: {{atributos_cadastro.0.profissao}}</p>
+    <p>{{index}}</p>
+
+    <br>
+    <br>
+    <br>
+
+
+    {%if atributos_cadastro.2.validator == True%}
+    <hr>
+    {% for pessoa in atributos_cadastro %}
+    <div>
+        <p>Nome:{{pessoa.nome}}</p>
+        <p>Idade:{{pessoa.idade}}</p>
+        <p>Profissao:{{pessoa.profissao}}</p>
+        <hr>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>{{atributos_cadastro.2.validator}}</p>
+    {% endif %}
+    <br>
+    {% for item in compras %}
+    <ol>
+        <li>{{item}}</li>
+    </ol>
+    {% endfor %}
+
+
 </head>
 
 <body>
