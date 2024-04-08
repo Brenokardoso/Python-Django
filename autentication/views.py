@@ -5,6 +5,8 @@ def home(request):
     return HttpResponse(content=F"Home Page Base Auth Controller")
 
 def cadastro(request):
+    print(request.GET)
+    print(F" index: {request.GET.get('index')}")
     return render(request,'cadastro.html')
 
 
