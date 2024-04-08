@@ -1,47 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+{% extends "base.html"%}
+{% load static %}
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticação</title>
-    <h1>Cadastro</h1>
+    <title>Cadastro</title>
 
-    <p>Nome: {{atributos_cadastro.0.nome}}</p>
-    <p>Idade: {{atributos_cadastro.0.idade}}</p>
-    <p>Profissao: {{atributos_cadastro.0.profissao}}</p>
-    <p>{{index}}</p>
+    {% block 'cabeçalho'%}
+    <link rel="stylesheet" href="{% static 'css/css_geral.css'%}">
+    <h1>Inicio</h1>
+    {% endblock %}
 
-    <br>
-    <br>
-    <br>
-
-
-    {%if atributos_cadastro.2.validator == True%}
-    <hr>
-    {% for pessoa in atributos_cadastro %}
-    <div>
-        <p>Nome:{{pessoa.nome}}</p>
-        <p>Idade:{{pessoa.idade}}</p>
-        <p>Profissao:{{pessoa.profissao}}</p>
-        <hr>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>{{atributos_cadastro.2.validator}}</p>
-    {% endif %}
-    <br>
-    {% for item in compras %}
-    <ol>
-        <li>{{item}}</li>
-    </ol>
-    {% endfor %}
-
+    {% block 'cabeçalho2'%}
+    <P>teste</P>
+    {% endblock %}
 
 </head>
 
 <body>
 
+    <p>123456</p>
+    {% block 'corpo1' %}
+    <img src="{% static 'img/imagem1.png'%}" alt="">
+    {% endblock %}
 </body>
 
 </html>
