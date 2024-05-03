@@ -11,20 +11,34 @@
 
     {% block 'cabeçalho'%}
     <link rel="stylesheet" href="{% static 'css/css_geral.css'%}">
-    <h1>Inicio</h1>
+    <h1>Empty Page</h1>
     {% endblock %}
 
     {% block 'cabeçalho2'%}
-    <P>teste</P>
     {% endblock %}
 
 </head>
 
 <body>
+    {% block 'conteudo' %}
 
-    <p>123456</p>
-    {% block 'corpo1' %}
-    <!-- <img src="{% static 'img/imagem1.png'%}" alt=""> -->
+    <form action="{% url 'cadastro' %}" method="GET">
+
+        {% csrf_token %}
+        <input type="text" placeholder="Nome" name="nome">
+        <input type="text" placeholder="Email" name="email">
+        <input type="submit" ,placeholder="Enivar">
+
+    </form>
+
+    {% endblock %}
+
+    {% block 'dados' %}
+    <br>
+    <p>Nome : {{dados.nome}}</p>
+    <br>
+    <p>Email: {{dados.email}}</p>
+
     {% endblock %}
 </body>
 
