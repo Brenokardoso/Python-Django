@@ -22,12 +22,13 @@
 <body>
     {% block 'conteudo' %}
 
-    <form action="{% url 'cadastro' %}" method="GET">
+    <form action="{% url 'cadastro' %}" method="POST">
 
         {% csrf_token %}
         <input type="text" placeholder="Nome" name="nome">
         <input type="text" placeholder="Email" name="email">
-        <input type="submit" ,placeholder="Enivar">
+        <input type="password" placeholder="senha" name="senha">
+        <input type="submit" placeholder="Enivar">
 
     </form>
 
@@ -38,6 +39,8 @@
     <p>Nome : {{dados.nome}}</p>
     <br>
     <p>Email: {{dados.email}}</p>
+    <br>
+    <p>Senha : {{dados.senha}}</p>
 
     {% endblock %}
 </body>

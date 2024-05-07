@@ -1,30 +1,36 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from .models import Pessoa
 
 def home(request):
     return HttpResponse(content=F"Home Page Base Auth Controller")
 
 def cadastro(request):
     # O envio de parametros é sempre via dicionário nas views 
+    print(request)
+    nome = request.POST.get('nome')
+    email = request.POST.get('email')
+    senha = request.POST.get('senha')
+    dados = {'nome' : nome,'email' : email,'senha' : senha}
+    pessoa = Pessoa(
+        nome = nome,
+        email = email,
+        senha = senha,
+    )
+    pessoa.save()
+    return render(request,'cadastro.html',{'dados':dados})
     
-    if request.method == 'POST':
-        nome = request.POST.get('nome')
-        email = request.POST.get('email')
-        dados = {'nome' : nome,'email' : email}
-        return render(request,'cadastro.html',{'dados':dados})
-    
-    elif request.method == "GET":
-        nome = request.GET.get("nome")
-        email = request.GET.get("email")
-        return HttpResponse(json.dumps({'nome': nome,'email': email}))
-
 def valida_formulario(request):
     nome = request.POST.get('nome')
     email = request.POST.get('email')
     return HttpResponse(json.dumps({'nome': nome,'email': email}))
 
-
+def listagem(request):
+    pessoas = Pessoa.objects.all()
+    for pessoa in pessoas:
+        print(pessoa)
+    return render(request,'listagem.html',{'pessoas' : pessoas})
 
 
 # def cadastro(request):

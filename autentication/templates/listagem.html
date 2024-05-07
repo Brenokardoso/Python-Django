@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% extends 'base.html' %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem</title>
+</head>
+
+<body>
+
+    {% block 'listagem' %}
+    <h1>Nomes cadastrados:</h1>
+    <div>
+        <hr>
+        {% for pessoa in pessoas %}
+        <p>Nome: {{pessoa.nome}}</p>
+        <p>Email : {{pessoa.email}}</p>
+        <p>Senha : {{pessoa.senha}}</p>
+        <hr>
+        {% endfor %}
+    </div>
+    {% endblock %}
+
+</body>
+
+</html>

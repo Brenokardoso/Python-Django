@@ -18,3 +18,6 @@ class Pessoa(models.Model):
         blank = True,
         max_length = 100, 
     )
+
+    def __str__(self) -> str:
+        return F"{self.nome} - {self.email} - {self.senha}"
