@@ -1,6 +1,27 @@
 from django.db import models
 
 
+class Cargos(models.Model):
+    """
+    Params : @nome -> STR | @lotacao -> STR 
+    """
+    nome = models.CharField(
+        verbose_name="Nome do cargo",
+        null=True,
+        blank=True,
+        max_length=100,
+    )
+    lotacao = models.CharField(
+        verbose_name="Lotação",
+        null=True,
+        blank=True,
+        max_length=100,
+    )
+
+    def __str__(self) -> str:
+        return f"{self.nome} - {self.lotacao}"
+
+
 class Pessoa(models.Model):
     """
     Params : @nome -> STR | @email -> STR | @senha -> STR
@@ -22,6 +43,12 @@ class Pessoa(models.Model):
         null=True,
         blank=True,
         max_length=100,
+    )
+    cargo = models.ForeignKey(
+        Cargos,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     def __str__(self) -> str:

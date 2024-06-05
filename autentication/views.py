@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 from django.db.models import Q
-from .models import Pessoa
+from .models import Pessoa, Cargos
 
 
 def home(request):
@@ -15,11 +15,23 @@ def cadastro(request):
     nome = request.POST.get("nome")
     email = request.POST.get("email")
     senha = request.POST.get("senha")
-    dados = {"nome": nome, "email": email, "senha": senha}
+    number_id = request.POST.get("numero_id")
+    nome_cargo = request.POST.get("cargo_name")
+    lotacao = request.POST.get("lotacao")
+    cargo = Cargos(number_id, nome_cargo, lotacao)
+    cargo_2 = Cargos.objects.get(id=7)
+    cargo.save()
+
+    dados = {
+        "nome": nome,
+        "email": email,
+        "senha": senha,
+    }
     pessoa = Pessoa(
         nome=nome,
         email=email,
         senha=senha,
+        cargo=cargo,
     )
     pessoa.save()
     return render(request, "cadastro.html", {"dados": dados})
@@ -32,16 +44,16 @@ def valida_formulario(request):
 
 
 def listagem(request):
+    # Pessoa.objects.filter()
     pessoas = Pessoa.objects.all()
-    pessoas = pessoas.filter(~Q(nome=None))
-    pessoas = pessoas.exclude(nome__icontains="teste")
-    people_update = pessoas.filter(nome="New Brain").first()
+    cargo = Cargos.objects.get(id=2)
+    new_job = pessoas.get(nome="Breno")
+    new_job.cargo = cargo
+    new_job.save()
 
-    people_update.nome = "New Brain"
-    people_update.save()
-    people_update.delete()
+    # pessoas = pessoas.exclude(nome__icontains="teste")
 
-    return render(request, "listagem.html", {"pessoas": pessoas, "att": people_update})
+    return render(request, "listagem.html", {"pessoas": pessoas})
 
 
 # def cadastro(request):

@@ -19,15 +19,10 @@
         <p>Nome: {{pessoa.nome}}</p>
         <p>Email : {{pessoa.email}}</p>
         <p>Senha : {{pessoa.senha}}</p>
+        <p>Cargo : {{pessoa.cargo.nome}}/{{pessoa.cargo.lotacao}}</p>
         <hr>
         {% endfor %}
     </div>
-    {% endblock %}
-    {% block 'dados' %}
-    <p>Pessoa Att: {{att.nome}}</p>
-    <p>Pessoa Att: {{att.email}}</p>
-    <p>Pessoa Att: {{att.senha}}</p>
-
     {% endblock %}
 
 </body>
