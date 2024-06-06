@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especificação Pessoa</title>
+</head>
+
+<body>
+    <p>
+        Nome : {{pessoa.nome}}
+        <br>
+        Email : {{pessoa.email}}
+        <br>
+        Senha : {{pessoa.senha}}
+        <br>
+        Cargos : {{pessoa.cargo.all.0}}
+        <br>
+
+    </p>
+</body>
+
+</html>

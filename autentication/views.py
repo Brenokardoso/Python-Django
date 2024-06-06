@@ -12,6 +12,8 @@ def home(request):
 def cadastro(request):
     # O envio de parametros é sempre via dicionário nas views
     print(request)
+    id = request.POST.get("id")
+    print(f"Valor do ID {id}")
     nome = request.POST.get("nome")
     email = request.POST.get("email")
     senha = request.POST.get("senha")
@@ -20,7 +22,7 @@ def cadastro(request):
     lotacao = request.POST.get("lotacao")
     cargo = Cargos(number_id, nome_cargo, lotacao)
     cargo_2 = Cargos.objects.get(id=7)
-    cargo.save()
+    # cargo.save() //manyTomany -> add or set()
 
     dados = {
         "nome": nome,
@@ -28,12 +30,14 @@ def cadastro(request):
         "senha": senha,
     }
     pessoa = Pessoa(
+        id=id,
         nome=nome,
         email=email,
         senha=senha,
-        cargo=cargo,
     )
     pessoa.save()
+    cargo.save()
+    pessoa.cargo.add(cargo)
     return render(request, "cadastro.html", {"dados": dados})
 
 
@@ -57,27 +61,6 @@ def listagem(request):
     return render(request, "listagem.html", {"pessoas": pessoas})
 
 
-# def cadastro(request):
-#     nome = "Breno"
-#     idade = 22
-#     profissao = 'garoto de programa'
-#     atributos_cadastro = [{
-#         "nome" : nome,
-#         "idade" : idade,
-#         "profissao" : profissao,
-#     },{
-#         "nome" : "Lucas",
-#         "idade" : "23",
-#         "profissao" : "Vendedor",
-#     },
-#     {
-#         "validator" : True
-#     }]
-#     lista_de_compras = ["abacaxi","pera","maça"]
-
-#     # Para renderizar os valores no HTML você faz assim:
-#     # atributos_cadastro.nome da variavel -> CERTO
-#     # atributos_cadastro[nome da variavel] -> ERRADO
-
-#     return render(request,"cadastro.html",{"atributos_cadastro":atributos_cadastro,
-#                                             "compras" : lista_de_compras})
+def listar_unico(request, number_page):
+    pessoa = Pessoa.objects.get(id=number_page)
+    return render(request, "listar_unico.html", {"pessoa": pessoa})

@@ -27,6 +27,7 @@
     <form action="{% url 'cadastro' %}" method="POST">
 
         {% csrf_token %}
+        <input type="number" placeholder="ID" name="ID">
         <input type="text" placeholder="Nome" name="nome">
         <input type="text" placeholder="Email" name="email">
         <input type="text" placeholder="ID do cargo" name="numero_id">
