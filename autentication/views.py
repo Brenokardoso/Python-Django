@@ -44,15 +44,16 @@ def valida_formulario(request):
 
 
 def listagem(request):
-    # Pessoa.objects.filter()
     pessoas = Pessoa.objects.all()
-    cargo = Cargos.objects.get(id=2)
-    new_job = pessoas.get(nome="Breno")
-    new_job.cargo = cargo
-    new_job.save()
-
-    # pessoas = pessoas.exclude(nome__icontains="teste")
-
+    pessoa = Pessoa.objects.get(nome="Breno")
+    cargo1 = Cargos.objects.get(id=1)
+    cargo2 = Cargos.objects.get(id=2)
+    pessoa.cargo.add(cargo1, cargo2)
+    filtro = Pessoa.objects.filter(cargo=cargo1)
+    all_jobs = pessoa.cargo.all()
+    print(f"filtro = {filtro}")
+    print(f"{all_jobs}")
+    pessoa.save()
     return render(request, "listagem.html", {"pessoas": pessoas})
 
 

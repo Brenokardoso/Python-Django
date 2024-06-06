@@ -3,8 +3,9 @@ from django.db import models
 
 class Cargos(models.Model):
     """
-    Params : @nome -> STR | @lotacao -> STR 
+    Params : @nome -> STR | @lotacao -> STR
     """
+
     nome = models.CharField(
         verbose_name="Nome do cargo",
         null=True,
@@ -44,10 +45,9 @@ class Pessoa(models.Model):
         blank=True,
         max_length=100,
     )
-    cargo = models.ForeignKey(
+    cargo = models.ManyToManyField(
         Cargos,
-        on_delete=models.CASCADE,
-        null=True,
+        verbose_name="Cargos",
         blank=True,
     )
 
