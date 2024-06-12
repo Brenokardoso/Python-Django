@@ -25,7 +25,8 @@ class Cargos(models.Model):
 
 class Pessoa(models.Model):
     """
-    Params : @nome -> STR | @email -> STR | @senha -> STR
+    Params : @nome -> STR | @email -> STR | @senha -> STR | @cargo -> ForeingKey(Cargos)
+    
     """
 
     nome = models.CharField(

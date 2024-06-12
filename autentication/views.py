@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, Http404
 import json
 from django.db.models import Q
 from .models import Pessoa, Cargos
@@ -62,5 +62,10 @@ def listagem(request):
 
 
 def listar_unico(request, number_page):
-    pessoa = Pessoa.objects.get(id=number_page)
+    pessoa = get_object_or_404(Pessoa, id=number_page)
     return render(request, "listar_unico.html", {"pessoa": pessoa})
+
+    # if len(Pessoa.objects.filter(id=number_page)) == 0:
+    #     raise Http404("This people id does't exists")
+    # else:
+    #     pessoa = Pessoa.objects.get(id=number_page)

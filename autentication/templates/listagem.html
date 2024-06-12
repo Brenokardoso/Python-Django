@@ -2,6 +2,7 @@
 <html lang="pt-br">
 {% extends 'base.html' %}
 {% load static %}
+{% load filters %}
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +18,7 @@
         <hr>
         {% for pessoa in pessoas %}
         <p>ID: {{pessoa.id}}</p>
-        <p>Nome: {{pessoa.nome}}</p>
+        <p>Nome: {{pessoa.nome|filter_one}}</p>
         <p>Email : {{pessoa.email}}</p>
         <p>Senha : {{pessoa.senha}}</p>
         <p>Cargo : {{pessoa.cargo.first.nome}}/{{pessoa.cargo.first.lotacao}}</p>
