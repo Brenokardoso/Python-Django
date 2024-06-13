@@ -57,3 +57,32 @@ class Pessoa(models.Model):
 
     class Meta:
         ordering = ["nome"]
+
+
+class Pedido(models.Model):
+    """
+    Params : @nome -> STR | @quantidade -> STR | @descrição -> STR | @pessoa -> ForeingKey(Pessoa)
+    """
+
+    nome = models.CharField(
+        verbose_name="Nome do Pedido",
+        max_length=250,
+        null=True,
+        blank=True,
+    )
+    quantidade = models.PositiveIntegerField(
+        verbose_name="Quantidade de pedidos",
+    )
+    descricao = models.CharField(
+        verbose_name="Descrição do Pedido",
+        max_length=250,
+        null=True,
+        blank=True,
+    )
+    pessoa = models.ForeignKey(
+        Pessoa,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self) -> str:
+        return f"{self.nome} - {self.descricao} - {self.quantidade}"
