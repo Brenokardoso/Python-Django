@@ -17,11 +17,11 @@
     <div>
         <hr>
         {% for pessoa in pessoas %}
-        <p>ID: {{pessoa.id}}</p>
-        <p>Nome: {{pessoa.nome|filter_one}}</p>
-        <p>Email : {{pessoa.email}}</p>
-        <p>Senha : {{pessoa.senha}}</p>
-        <p>Cargo : {{pessoa.cargo.first.nome}}/{{pessoa.cargo.first.lotacao}}</p>
+        <p>ID: {{pessoa.id |string_has_none}}</p>
+        <p>Nome: {{pessoa.nome |filter_one |string_has_none}}</p>
+        <p>Email : {{pessoa.email |string_has_none}}</p>
+        <p>Senha : {{pessoa.senha |string_has_none}}</p>
+        <p>Cargo : {{pessoa.cargo.first.nome |string_has_none}}/{{pessoa.cargo.first.lotacao |string_has_none}}</p>
         <hr>
         {% endfor %}
     </div>
