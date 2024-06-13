@@ -4,10 +4,10 @@ from django import template
 
 register = template.Library()
 """
-A class for registering template tags and filters. Compiled filter and
-template tag functions are stored in the filters and tags attributes.
-The filter, simple_tag, and inclusion_tag methods provide a convenient
-way to register callables as tags.
+Uma classe para registrar tags e filtros de modelo. Filtro compilado e
+As funções de tag de modelo são armazenadas nos atributos de filtros e tags.
+Os métodos filter, simple_tag e inclusão_tag fornecem uma maneira conveniente
+maneira de registrar callables como tags.
 """
 
 @register.filter(name="filter_one")

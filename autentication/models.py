@@ -26,7 +26,7 @@ class Cargos(models.Model):
 class Pessoa(models.Model):
     """
     Params : @nome -> STR | @email -> STR | @senha -> STR | @cargo -> ForeingKey(Cargos)
-    
+
     """
 
     nome = models.CharField(
@@ -54,3 +54,6 @@ class Pessoa(models.Model):
 
     def __str__(self) -> str:
         return f"{self.nome} - {self.email} - {self.senha}"
+
+    class Meta:
+        ordering = ["nome"]
