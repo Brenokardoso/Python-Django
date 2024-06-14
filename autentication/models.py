@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.safestring import mark_safe
 
 
 class Cargos(models.Model):
@@ -64,6 +65,10 @@ class Pessoa(models.Model):
 
     def complete_name(self):
         return f"{self.nome} {self.sobrenome}"
+
+    @mark_safe
+    def get_image(self):
+        return f"<img width='30px' src ='/media/{self.foto}'>"
 
     class Meta:
         ordering = ["nome"]
