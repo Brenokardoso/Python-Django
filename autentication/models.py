@@ -29,8 +29,15 @@ class Pessoa(models.Model):
 
     """
 
+    foto = models.ImageField(upload_to="fotos")
     nome = models.CharField(
         verbose_name="Nome",
+        null=True,
+        blank=True,
+        max_length=100,
+    )
+    sobrenome = models.CharField(
+        verbose_name="Sobrenome",
         null=True,
         blank=True,
         max_length=100,
@@ -54,6 +61,9 @@ class Pessoa(models.Model):
 
     def __str__(self) -> str:
         return f"{self.nome} - {self.email} - {self.senha}"
+
+    def complete_name(self):
+        return f"{self.nome} {self.sobrenome}"
 
     class Meta:
         ordering = ["nome"]

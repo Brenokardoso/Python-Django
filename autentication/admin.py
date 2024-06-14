@@ -15,7 +15,7 @@ class PedidoInLine(admin.TabularInline):
 
 @admin.register(Pessoa)
 class PessoaAdmin(admin.ModelAdmin):
-    list_display = ["nome", "email", "senha"]
+    list_display = ["foto", "complete_name", "email"]
     readonly_fields = ["senha"]
     search_fields = ["nome"]
     list_filter = ["cargo"]
