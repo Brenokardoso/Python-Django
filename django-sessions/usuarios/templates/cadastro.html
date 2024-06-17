@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block 'titulo'%} Página de Cadastros {%endblock%}
+
+{% block 'conteudo' %}
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md">
+            <h2>Cadastre-se pelo formulário abaixo</h2>
+            <hr>
+            <form action="{% url 'cadastro' %}" method="POST">
+                {% csrf_token %}
+                <label>Nome:</label>
+                <input class="form-control" type="text" placeholder="Nome...." name="nome">
+                <br>
+
+                <label>Email:</label>
+                <input class="form-control" type="text" placeholder="Email...." name="email">
+                <br>
+
+                <label>Senha</label>
+                <input class="form-control" type="password" placeholder="Senha........" name="senha">
+                <br>
+                <button class="btn btn-success btn-lg" type="submit" value="Enviar">Enviar</button>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+
+
+    </div>
+</div>
+
+{% endblock %}
