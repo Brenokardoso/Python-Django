@@ -5,31 +5,46 @@
 {% block 'conteudo' %}
 <div class="container">
     <br>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md">
-            <h2>Cadastre-se pelo formulário abaixo</h2>
-            <hr>
-            <form action="{% url 'pessoas' %}" method="POST">
-                {% csrf_token %}
-                <label>Nome:</label>
-                <input class="form-control" type="text" placeholder="Nome...." name="nome">
-                <br>
-
-                <label>Email:</label>
-                <input class="form-control" type="text" placeholder="Email...." name="email">
-                <br>
-
-                <label>Senha</label>
-                <input class="form-control" type="password" placeholder="Senha........" name="senha">
-                <br>
-                <button class="btn btn-success btn-lg" type="submit" value="Enviar">Enviar</button>
-            </form>
-        </div>
-        <div class="col-md-3"></div>
-
-
-    </div>
+    {% if status == 1%}
+    <<div class="alert alert-danger" role="alert">
+        Digite dados inválidos
 </div>
+{% endif%}
+{% if status == 2%}
+<<div class="alert alert-danger" role="alert">
+    Senha com tamanho inválido,tente novamente
+    </div>
+    {% endif%}
+    {% if status == 3%}
+    <<div class="alert alert-danger" role="alert">
+        Este nome e meial de usuário já estão cadastrados,tente outro :)
+        </div>
+        {% endif%}
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md">
+                <h2>Cadastre-se pelo formulário abaixo</h2>
+                <hr>
+                <form action="{% url 'pessoas' %}" method="POST">
+                    {% csrf_token %}
+                    <label>Nome:</label>
+                    <input class="form-control" type="text" placeholder="Nome...." name="nome">
+                    <br>
 
-{% endblock %}
+                    <label>Email:</label>
+                    <input class="form-control" type="text" placeholder="Email...." name="email">
+                    <br>
+
+                    <label>Senha</label>
+                    <input class="form-control" type="password" placeholder="Senha........" name="senha">
+                    <br>
+                    <button class="btn btn-success btn-lg" type="submit" value="Enviar">Enviar</button>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+
+
+        </div>
+        </div>
+
+        {% endblock %}

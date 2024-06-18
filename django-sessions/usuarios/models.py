@@ -26,7 +26,6 @@ class Usuario(models.Model):
 
     class Meta:
         ordering = ["nome"]
-        unique_together = ["nome",'email',"senha"]
 
     def save(self, *args, **kwargs):
         super().save()
