@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block 'titulo'%} Pessoas Cadastradas {%endblock%}
+
+{% block 'conteudo' %}
+<h2>Pessoas cadastradas:</h2>
+
+{% for pessoa in pessoas%}
+<hr>
+<p>Nome: {{pessoa.nome}}</p>
+<p>Email: {{pessoa.email}}</p>
+<p>Senha: {{pessoa.senha}}</p>
+
+{% endfor %}
+
+
+{% endblock %}

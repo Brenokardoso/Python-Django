@@ -21,8 +21,12 @@ class Usuario(models.Model):
         blank=True,
     )
 
+    def __str__(self):
+        return f"{self.nome}-{self.email}"
+
     class Meta:
         ordering = ["nome"]
+        unique_together = ["nome",'email',"senha"]
 
     def save(self, *args, **kwargs):
         super().save()
