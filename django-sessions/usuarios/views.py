@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Usuario
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect, render
 from hashlib import sha256
 
 
@@ -11,8 +11,11 @@ def home(request):
 
 def login(request):
 
-    status = request.GET.get("status")
-    print(f"Valor do status no login {status}")
+    try:
+        status = request.GET.get("status")
+        print(f"Valor do status no login {status}")
+    except:
+        print("Não foi possível capturar o valor do status code")
     try:
         email = request.POST.get("email")
         senha = request.POST.get("senha")
@@ -74,13 +77,19 @@ def validate_login(request):
         email = request.POST.get("email")
         senha = request.POST.get("senha")
         print(f"O Email {email} senha {senha}")
+
     except:
         print("Não foi posível capturar os valores")
 
     if (senha == None or senha == "") or (senha == None or senha == ""):
         return redirect("/auth/login/?status=1")
 
-    if len(senha) < 8:
+    elif len(senha) < 8:
         return redirect("/auth/login/?status=2")
 
-    return redirect("/auth/pessoas/?status=0")
+    elif len(Usuario.objects.filter(email=email)) == 0:
+        return redirect("/auth/login/?status=3")
+
+    else:
+        request.session["logado"] = True
+        return redirect("/plataforma/home")
