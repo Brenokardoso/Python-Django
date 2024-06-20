@@ -4,6 +4,6 @@ from django.http import HttpResponse
 
 def home(request):
     if request.session["logado"] == True:
-        return HttpResponse("Você está no sistema!")
+        return render(request, "home.html")
     else:
         return redirect("/auth/login/?status=5")
