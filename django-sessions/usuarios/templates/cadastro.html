@@ -7,13 +7,13 @@
     <br>
     {% if status == '0' %}
     <div class="alert alert-success">
-        Digite dados inválidos
+        Pessoa salva com sucesso
     </div>
     {% endif%}
     <br>
     {% if status == '1' %}
     <div class="alert alert-danger" role="alert">
-        Digite dados inválidos
+        Dados Inválidos
     </div>
     {% endif%}
     <div class="row">
@@ -21,7 +21,7 @@
         <div class="col-md">
             <h2>Cadastre-se pelo formulário abaixo</h2>
             <hr>
-            <form action="{% url 'validate' %}" method="POST">
+            <form action="{% url 'validate_cadastro' %}" method="POST">
                 {% csrf_token %}
                 <label>Nome:</label>
                 <input class="form-control" type="text" placeholder="Nome...." name="nome">

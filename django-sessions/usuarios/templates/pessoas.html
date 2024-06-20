@@ -2,7 +2,16 @@
 
 {% block 'titulo'%} Pessoas Cadastradas {%endblock%}
 
+{% block 'head' %}
+{% endblock %}
+
 {% block 'conteudo' %}
+{% if status == '0' %}
+<div class="alert alert-success">
+    Login realizado com sucesso
+</div>
+{% endif%}
+
 <h2>Pessoas cadastradas:</h2>
 
 {% for pessoa in pessoas %}

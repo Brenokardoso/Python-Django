@@ -6,5 +6,6 @@ urlpatterns = [
     path("login/", login, name="login"),
     path("cadastro/", cadastro, name="cadastro"),
     path("pessoas/", pessoas, name="pessoas"),
-    path("validate/", validate, name="validate"),
+    path("validate_cadastro/", validate_cadastro, name="validate_cadastro"),
+    path("validate_login",validate_login,name='validate_login')
 ]
