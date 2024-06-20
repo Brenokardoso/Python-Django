@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("Você está no sisema!")
+    if request.session["logado"] == True:
+        return HttpResponse("Você está no sistema!")
+    else:
+        return redirect("/auth/login/?status=5")

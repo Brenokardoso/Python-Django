@@ -37,14 +37,17 @@ def cadastro(request):
 
 def pessoas(request):
 
-    try:
-        status = request.GET.get("status")
-        print(f"valor do status : {status}")
-    except:
-        print("Houve uma exceção ao capturar o status")
+    if request.session["logado"] == False:
+        return redirect("/auth/login/?status=5")
+    else:
+        try:
+            status = request.GET.get("status")
+            print(f"valor do status : {status}")
+        except:
+            print("Houve uma exceção ao capturar o status")
 
-    people = Usuario.objects.all()
-    return render(request, "pessoas.html", {"pessoas": people})
+        people = Usuario.objects.all()
+        return render(request, "pessoas.html", {"pessoas": people})
 
 
 def validate_cadastro(request):
@@ -93,3 +96,8 @@ def validate_login(request):
     else:
         request.session["logado"] = True
         return redirect("/plataforma/home")
+
+
+def sair(request):
+    request.session["logado"] = False
+    return redirect("/auth/login/")

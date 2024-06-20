@@ -7,5 +7,6 @@ urlpatterns = [
     path("cadastro/", cadastro, name="cadastro"),
     path("pessoas/", pessoas, name="pessoas"),
     path("validate_cadastro/", validate_cadastro, name="validate_cadastro"),
-    path("validate_login",validate_login,name='validate_login')
+    path("validate_login/", validate_login, name="validate_login"),
+    path("sair/", sair, name="sair"),
 ]
