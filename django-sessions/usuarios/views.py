@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Usuario
 from django.shortcuts import redirect, render
 from hashlib import sha256
+from django.contrib import messages as msg
+from django.contrib.messages import constants
 
 
 def home(request):
@@ -10,6 +12,8 @@ def home(request):
 
 
 def login(request):
+    
+    msg.add_message(request, constants.SUCCESS, "Você entrou na página com sucesso!\t")
 
     try:
         status = request.GET.get("status")

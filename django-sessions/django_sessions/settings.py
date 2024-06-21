@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -121,6 +122,18 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIR = os.path.join(BASE_DIR, "templates/static")
 SESSION_COOKIE_AGE = 60 * 10
-
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Django Message
+
+
+MESSAGE_TAGS = {
+    constants.DEBUG: "alert-prymary",
+    constants.DEFAULT_LEVELS: "alert-alert",
+    constants.DEFAULT_TAGS: "alert-alert",
+    constants.ERROR: "alert-danger",
+    constants.INFO: "alert-info",
+    constants.SUCCESS: "alert-success",
+    constants.WARNING: "alert-warning",
+}
