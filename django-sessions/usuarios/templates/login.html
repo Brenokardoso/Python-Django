@@ -34,6 +34,14 @@
         Faça login antes de acessar o sistema!
     </div>
     {% endif %}
+
+    {% if status == '7' %}
+
+    <div class="alert alert-danger">
+        <h5>Você já está desconectado do sistema!</h5>
+    </div>
+
+    {% endif %}
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md">

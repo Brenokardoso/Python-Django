@@ -37,17 +37,20 @@ def cadastro(request):
 
 def pessoas(request):
 
-    if request.session["logado"] == False:
-        return redirect("/auth/login/?status=5")
-    else:
-        try:
-            status = request.GET.get("status")
-            print(f"valor do status : {status}")
-        except:
-            print("Houve uma exceção ao capturar o status")
+    try:
+        if request.session["logado"] == False:
+            return redirect("/auth/login/?status=5")
+        else:
+            try:
+                status = request.GET.get("status")
+                print(f"valor do status : {status}")
+            except:
+                print("Houve uma exceção ao capturar o status")
 
-        people = Usuario.objects.all()
-        return render(request, "pessoas.html", {"pessoas": people})
+            people = Usuario.objects.all()
+            return render(request, "pessoas.html", {"pessoas": people})
+    except:
+        return redirect("/auth/login/?status=5")
 
 
 def validate_cadastro(request):
@@ -95,9 +98,29 @@ def validate_login(request):
 
     else:
         request.session["logado"] = True
-        return redirect("/plataforma/home")
+        request.session["user_id"] = True
+        return redirect("/plataforma/home/")
 
 
 def sair(request):
-    request.session["logado"] = False
-    return redirect("/auth/login/")
+    try:
+        del request.session["logado"]
+        del request.session["user_id"]
+        return redirect("/auth/login/")
+    except KeyError:
+        return redirect("/auth/login/?status=7")
+
+
+# def sair(request):
+# time_min = request.session.get_expiry_age() / 60  # minutos
+# time_hrs = time_min / 60  # horas
+# time_day = time_hrs / 24
+# expiry_days = request.session.get_expiry_date()
+# return HttpResponse(
+#     f"O tempo para o usuário expirar é de {time_day} dias ou {time_hrs} horas ou {time_min} minutos"
+# )
+# request.session["logado"] = False
+# request.session["user_id"] = False
+# request.session.clear() # Apaga todos os valores armazenados nesta chave
+# request.session.flush()  # Apaga tudo,até a chave
+# return redirect("/auth/login/")
