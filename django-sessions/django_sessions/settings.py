@@ -119,9 +119,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIR = os.path.join(BASE_DIR, "templates/static")
-SESSION_COOKIE_AGE = 60 * 10
+SESSION_COOKIE_AGE = 60 * 100
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
@@ -130,8 +130,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MESSAGE_TAGS = {
     constants.DEBUG: "alert-prymary",
-    constants.DEFAULT_LEVELS: "alert-alert",
-    constants.DEFAULT_TAGS: "alert-alert",
     constants.ERROR: "alert-danger",
     constants.INFO: "alert-info",
     constants.SUCCESS: "alert-success",

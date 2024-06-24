@@ -4,6 +4,16 @@
 
 {% block 'conteudo' %}
 <div class="container">
+    
+    <br>
+    {% if messages %}
+        {% for message in messages %}
+          <div class="alert {{message.tags}}" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+    {% endif %}
+
     <br>
     {% if status == '0' %}
     <div class="alert alert-success">

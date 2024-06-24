@@ -12,8 +12,18 @@ def home(request):
 
 
 def login(request):
+
+    msg.add_message(
+        request,
+        constants.SUCCESS,
+        "Você entrou na página com sucesso!\t",
+    )
     
-    msg.add_message(request, constants.SUCCESS, "Você entrou na página com sucesso!\t")
+    # msg.add_message(
+    #     request,
+    #     constants.INFO,
+    #     "Mensagem de infomação para o usuário final",
+    # )
 
     try:
         status = request.GET.get("status")
