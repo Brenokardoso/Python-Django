@@ -5,17 +5,15 @@
 {% block 'conteudo' %}
 <div class="container">
     <br>
-    {% if status == '0' %}
-    <div class="alert alert-success">
-        Pessoa salva com sucesso
-    </div>
-    {% endif%}
-    <br>
-    {% if status == '1' %}
-    <div class="alert alert-danger" role="alert">
-        Dados Inválidos
-    </div>
-    {% endif%}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{message.tags}}" role="alert">
+                {{message}} 
+            </div>
+        {%  endfor %}
+    {% endif %}
+
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md">

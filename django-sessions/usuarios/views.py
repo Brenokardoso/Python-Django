@@ -12,59 +12,23 @@ def home(request):
 
 
 def login(request):
-
-    msg.add_message(
-        request,
-        constants.SUCCESS,
-        "Você entrou na página com sucesso!\t",
-    )
-    
-    # msg.add_message(
-    #     request,
-    #     constants.INFO,
-    #     "Mensagem de infomação para o usuário final",
-    # )
-
-    try:
-        status = request.GET.get("status")
-        print(f"Valor do status no login {status}")
-    except:
-        print("Não foi possível capturar o valor do status code")
-    try:
-        email = request.POST.get("email")
-        senha = request.POST.get("senha")
-    except:
-        print("Não foi possível caprtuar os dados")
-
-    return render(request, "login.html", {"status": status})
+    return render(request, "login.html")
 
 
 def cadastro(request):
-
-    try:
-        status = request.GET.get("status")
-        print(f"Valor do status = {status}")
-    except:
-        print("Houve uma exceção")
-    return render(request, "cadastro.html", {"status": status})
+    return render(request, "cadastro.html")
 
 
 def pessoas(request):
 
-    try:
-        if request.session["logado"] == False:
-            return redirect("/auth/login/?status=5")
-        else:
-            try:
-                status = request.GET.get("status")
-                print(f"valor do status : {status}")
-            except:
-                print("Houve uma exceção ao capturar o status")
-
-            people = Usuario.objects.all()
-            return render(request, "pessoas.html", {"pessoas": people})
-    except:
-        return redirect("/auth/login/?status=5")
+    if request.session["logado"] == False:
+        msg.add_message(
+            request, constants.WARNING, "Usuário não conectado ao sistema,faça o login"
+        )
+        return redirect("/auth/login/")
+    else:
+        people = Usuario.objects.all()
+        return render(request, "pessoas.html", {"pessoas": people})
 
 
 def validate_cadastro(request):
@@ -81,14 +45,20 @@ def validate_cadastro(request):
         or (email == None or email == "")
         or (senha == None or senha == "")
     ):
-        return redirect("/auth/cadastro?status=1")
+        msg.add_message(
+            request,
+            constants.ERROR,
+            "Campos de nome e/ou email e/ou senha vazios,preencha-os!",
+        )
+        return redirect("/auth/cadastro/")
 
     senha = sha256(senha.encode()).hexdigest()
 
     user = Usuario(nome=nome, email=email, senha=senha)
     user.save()
 
-    return redirect("/auth/cadastro?status=0")
+    msg.add_message(request, constants.SUCCESS, "Usuário cadastrado com sucesso!")
+    return redirect("/auth/cadastro/")
 
 
 def validate_login(request):
@@ -102,27 +72,40 @@ def validate_login(request):
         print("Não foi posível capturar os valores")
 
     if (senha == None or senha == "") or (senha == None or senha == ""):
-        return redirect("/auth/login/?status=1")
+        msg.add_message(
+            request,
+            constants.WARNING,
+            "Email ou senha inválidos,preencha os campos corretamente",
+        )
+        return redirect("/auth/login/")
 
     elif len(senha) < 8:
-        return redirect("/auth/login/?status=2")
+        msg.add_message(
+            request,
+            constants.WARNING,
+            "Número de caracteres da senha precisa ser maior",
+        )
+        return redirect("/auth/login/")
 
     elif len(Usuario.objects.filter(email=email)) == 0:
-        return redirect("/auth/login/?status=3")
+        msg.add_message(request, constants.WARNING, "Usuário não cadastrado")
+        return redirect("/auth/login/")
 
     else:
         request.session["logado"] = True
         request.session["user_id"] = True
+        msg.add_message(request, constants.SUCCESS, "Redirecionado com sucesso")
         return redirect("/plataforma/home/")
 
 
 def sair(request):
     try:
-        del request.session["logado"]
-        del request.session["user_id"]
+        request.session.flush()
         return redirect("/auth/login/")
+
     except KeyError:
-        return redirect("/auth/login/?status=7")
+        msg.add_message(request, constants.WARNING, "Chave de Id não existe")
+        return redirect("/auth/login/")
 
 
 # def sair(request):
