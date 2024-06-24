@@ -52,6 +52,14 @@ def validate_cadastro(request):
         )
         return redirect("/auth/cadastro/")
 
+    if len(Usuario.objects.filter(nome=nome).filter(email=email)) > 0:
+        msg.add_message(
+            request,
+            constants.ERROR,
+            "Este nome de usuario e email já estão cadastrados",
+        )
+        return redirect("/auth/cadastro/")
+
     senha = sha256(senha.encode()).hexdigest()
 
     user = Usuario(nome=nome, email=email, senha=senha)
@@ -108,7 +116,7 @@ def sair(request):
         return redirect("/auth/login/")
 
 
-# def sair(request):
+# def sair(request):j
 # time_min = request.session.get_expiry_age() / 60  # minutos
 # time_hrs = time_min / 60  # horas
 # time_day = time_hrs / 24

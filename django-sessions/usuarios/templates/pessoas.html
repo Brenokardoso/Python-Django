@@ -6,21 +6,25 @@
 {% endblock %}
 
 {% block 'conteudo' %}
-{% if status == '0' %}
-<div class="alert alert-success">
-    Login realizado com sucesso
-</div>
-{% endif%}
 
-<h2>Pessoas cadastradas:</h2>
+    <br>
+    {% if messages %}
+        {% for message in messages %}
+          <div class="alert {{message.tags}}" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+    {% endif %}
 
-{% for pessoa in pessoas %}
-<hr>
-<p>Nome: {{pessoa.nome}}</p>
-<p>Email: {{pessoa.email}}</p>
-<p>Senha: {{pessoa.senha}}</p>
+    <h2>Pessoas cadastradas:</h2>
 
-{% endfor %}
+    {% for pessoa in pessoas %}
+        <hr>
+        <p>Nome: {{pessoa.nome}}</p>
+        <p>Email: {{pessoa.email}}</p>
+        <p>Senha: {{pessoa.senha}}</p>
+
+    {% endfor %}
 
 
 {% endblock %}
