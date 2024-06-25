@@ -23,14 +23,8 @@ def cadastro(request):
 
 def pessoas(request):
 
-    if request.session["logado"] == False:
-        msg.add_message(
-            request, constants.WARNING, "Usuário não conectado ao sistema,faça o login"
-        )
-        return redirect("/auth/login/")
-    else:
-        people = Usuario.objects.all()
-        return render(request, "pessoas.html", {"pessoas": people})
+    people = AuthUser.objects.all()
+    return render(request, "pessoas.html", {"pessoas": people})
 
 
 def validate_cadastro(request):
@@ -92,6 +86,7 @@ def validate_login(request):
         nome = request.POST.get("nome")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
+
     except:
         msg.add_message(
             request,
@@ -100,18 +95,17 @@ def validate_login(request):
         )
         redirect("/auth/login/")
 
-    print(f"nome {nome} email {email} senha {senha} ")
+    try:
+        usuario = authenticate(
+            request=request, username=nome, email=email, password=senha
+        )
+        authLogin(request, usuario)
 
-    usuario = authenticate(request=request, username=nome, email=email, password=senha)
-    print(f"Valor de usuario {usuario}")
-    authLogin(request, usuario)
-
-    if not usuario:
+    except:
         msg.add_message(request, constants.WARNING, "Usuário não existe!")
         return redirect("/auth/login/")
 
-    else:
-        return redirect("/plataforma/home/")
+    return redirect("/plataforma/home/")
 
 
 def sair(request):

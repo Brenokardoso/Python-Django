@@ -16,13 +16,13 @@
         {% endfor %}
     {% endif %}
 
-    <h2>Pessoas cadastradas:</h2>
+    <h2>Pessoas cadastradas em AuthBaseUser:</h2>
 
     {% for pessoa in pessoas %}
         <hr>
-        <p>Nome: {{pessoa.nome}}</p>
+        <p>Nome: {{pessoa.username}}</p>
         <p>Email: {{pessoa.email}}</p>
-        <p>Senha: {{pessoa.senha}}</p>
+        <p>Senha: {{pessoa.password}}</p>
 
     {% endfor %}
 
