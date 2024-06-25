@@ -5,6 +5,8 @@ from django.shortcuts import redirect, render
 from hashlib import sha256
 from django.contrib import messages as msg
 from django.contrib.messages import constants
+from django.contrib.auth.models import User as AuthUser
+from django.contrib.auth import authenticate, login as authLogin
 
 
 def home(request):
@@ -52,61 +54,68 @@ def validate_cadastro(request):
         )
         return redirect("/auth/cadastro/")
 
-    if len(Usuario.objects.filter(nome=nome).filter(email=email)) > 0:
+    if AuthUser.objects.filter(email=email).exists():
         msg.add_message(
             request,
             constants.ERROR,
-            "Este nome de usuario e email já estão cadastrados",
+            "Este email já está cadastrado",
         )
         return redirect("/auth/cadastro/")
 
-    senha = sha256(senha.encode()).hexdigest()
+    if AuthUser.objects.filter(username=nome).exists():
+        msg.add_message(
+            request,
+            constants.ERROR,
+            "Este nome de usuario está cadastrado",
+        )
+        return redirect("/auth/cadastro/")
 
-    user = Usuario(nome=nome, email=email, senha=senha)
-    user.save()
+    usuario = AuthUser.objects.create_user(
+        username=nome,
+        email=email,
+        password=senha,
+    )
 
-    msg.add_message(request, constants.SUCCESS, "Usuário cadastrado com sucesso!")
+    usuario.save()
+
+    msg.add_message(
+        request,
+        constants.SUCCESS,
+        "Usuário cadastrado com sucesso!",
+    )
     return redirect("/auth/cadastro/")
 
 
 def validate_login(request):
 
     try:
+        nome = request.POST.get("nome")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
-        print(f"O Email {email} senha {senha}")
-
     except:
-        print("Não foi posível capturar os valores")
-
-    if (senha == None or senha == "") or (senha == None or senha == ""):
         msg.add_message(
             request,
-            constants.WARNING,
-            "Email ou senha inválidos,preencha os campos corretamente",
+            constants.INFO,
+            "Não foi posível capturar os valores de nome e email",
         )
-        return redirect("/auth/login/")
+        redirect("/auth/login/")
 
-    elif len(senha) < 8:
-        msg.add_message(
-            request,
-            constants.WARNING,
-            "Número de caracteres da senha precisa ser maior",
-        )
-        return redirect("/auth/login/")
+    print(f"nome {nome} email {email} senha {senha} ")
 
-    elif len(Usuario.objects.filter(email=email)) == 0:
-        msg.add_message(request, constants.WARNING, "Usuário não cadastrado")
+    usuario = authenticate(request=request, username=nome, email=email, password=senha)
+    print(f"Valor de usuario {usuario}")
+    authLogin(request, usuario)
+
+    if not usuario:
+        msg.add_message(request, constants.WARNING, "Usuário não existe!")
         return redirect("/auth/login/")
 
     else:
-        request.session["logado"] = True
-        request.session["user_id"] = True
-        msg.add_message(request, constants.SUCCESS, "Redirecionado com sucesso")
         return redirect("/plataforma/home/")
 
 
 def sair(request):
+
     try:
         request.session.flush()
         return redirect("/auth/login/")

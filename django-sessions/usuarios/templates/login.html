@@ -13,6 +13,7 @@
           </div>
         {% endfor %}
     {% endif %}
+
     <br>
     <div class="row">
         <div class="col-md-3"></div>
@@ -21,18 +22,18 @@
             <hr>
             <form action="{% url 'validate_login' %}" method="POST">
                 {% csrf_token %}
+                <label>Nome</label>
+                <input class="form-control" type="text" placeholder="Nome........" name="nome">
+                <br>
                 <label>Email:</label>
                 <input class="form-control" type="text" placeholder="Email...." name="email">
                 <br>
-
-                <label>Senha</label>
-                <input class="form-control" type="password" placeholder="Senha........" name="senha">
+                <label>Senha:</label>
+                <input class="form-control" type="password" placeholder="Senha...." name="senha">
                 <br>
-
                 <button class="btn btn-success btn-lg" type="submit" value="Enviar">Enviar</button>
                 <a class="btn btn-warning btn-lg" type="submit" value="cadastre-se"
                     href="{% url 'cadastro' %}">Cadastre-se</a>
-
             </form>
         </div>
         <div class="col-md-3"></div>

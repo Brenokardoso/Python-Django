@@ -28,4 +28,4 @@ class Usuario(models.Model):
         ordering = ["nome"]
 
     def save(self, *args, **kwargs):
-        super().save()
+        super().save(*args,**kwargs)
