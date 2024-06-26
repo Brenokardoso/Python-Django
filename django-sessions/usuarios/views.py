@@ -6,7 +6,8 @@ from hashlib import sha256
 from django.contrib import messages as msg
 from django.contrib.messages import constants
 from django.contrib.auth.models import User as AuthUser
-from django.contrib.auth import authenticate, login as authLogin
+from django.contrib.auth import authenticate, login as authLogin, logout
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -21,6 +22,7 @@ def cadastro(request):
     return render(request, "cadastro.html")
 
 
+@login_required(login_url="/auth/login/")
 def pessoas(request):
 
     people = AuthUser.objects.all()
@@ -111,7 +113,8 @@ def validate_login(request):
 def sair(request):
 
     try:
-        request.session.flush()
+        logout(request)
+        # request.session.flush()
         return redirect("/auth/login/")
 
     except KeyError:
