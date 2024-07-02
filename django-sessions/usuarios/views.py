@@ -15,7 +15,10 @@ def home(request):
 
 
 def login(request):
-    return render(request, "login.html")
+    if request.user.is_authenticated:
+        return redirect("/plataforma/home")
+    else:
+        return render(request, "login.html")
 
 
 def cadastro(request):
