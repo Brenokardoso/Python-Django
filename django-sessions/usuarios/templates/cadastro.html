@@ -29,9 +29,25 @@
                 <input class="form-control" type="text" placeholder="Email...." name="email">
                 <br>
 
-                <label>Senha</label>
+                <label>Senha:</label>
                 <input class="form-control" type="password" placeholder="Senha........" name="senha">
                 <br>
+
+                <hr>
+                <h2>Dados residênciais</h2>
+
+                <label>Rua:</label>
+                <input class ="form-control" type="text" placeholder = "Rua....." name="rua">
+                <br>
+
+                <label>Numero da Rua:</label>
+                <input class="form-control" type="text" placeholder ="Numero da rua...." name="num_rua">
+                <br>
+
+                <label>Cep:</label>
+                <input class = "form-control" type="text" placeholder="Cep....." name="cep">
+                <br>
+
                 <button class="btn btn-success btn-lg" type="submit" value="Enviar">Enviar</button>
                 <a href="{% url 'login' %}" class="btn btn-warning btn-lg" type="submit" value="Login">Login</a>
             </form>

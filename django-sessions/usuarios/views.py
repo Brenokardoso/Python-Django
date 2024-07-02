@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Usuario
 from django.shortcuts import redirect, render
 from hashlib import sha256
 from django.contrib import messages as msg
@@ -8,6 +7,7 @@ from django.contrib.messages import constants
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth import authenticate, login as authLogin, logout
 from django.contrib.auth.decorators import login_required
+from .models import EnderecoUsuario
 
 
 def home(request):
@@ -38,6 +38,13 @@ def validate_cadastro(request):
         nome = request.POST.get("nome")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
+
+        rua = request.POST.get("rua")
+        num_rua = request.POST.get("num_rua")
+        cep = request.POST.get("cep")
+
+        print(f"os valores de rua {rua} numero {num_rua} e cep {cep}")
+
     except:
         print("Não foram possível capturar os dados")
 
@@ -77,6 +84,9 @@ def validate_cadastro(request):
 
     usuario.save()
 
+    end_user = EnderecoUsuario(rua=rua, numero=num_rua, cep=cep, usuario=usuario)
+    end_user.save()
+
     msg.add_message(
         request,
         constants.SUCCESS,
@@ -102,8 +112,12 @@ def validate_login(request):
 
     try:
         usuario = authenticate(
-            request=request, username=nome, email=email, password=senha
+            request=request,
+            username=nome,
+            email=email,
+            password=senha,
         )
+
         authLogin(request, usuario)
 
     except:
