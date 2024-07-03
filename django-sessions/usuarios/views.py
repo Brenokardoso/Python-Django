@@ -4,7 +4,9 @@ from django.shortcuts import redirect, render
 from hashlib import sha256
 from django.contrib import messages as msg
 from django.contrib.messages import constants
-from django.contrib.auth.models import User as AuthUser
+
+# from django.contrib.auth.models import User as AuthUser
+from .models import User as AuthUser
 from django.contrib.auth import authenticate, login as authLogin, logout
 from django.contrib.auth.decorators import login_required
 from .models import EnderecoUsuario
